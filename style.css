@@ -1,0 +1,932 @@
+/* ==========================================================================
+   KURFANOVA MÜZİK (KURFA SOUND LIGHT) — DESIGN SYSTEM v5
+   Awwwards & Streaming Standard: Deep Obsidian, Selective Glassmorphism,
+   Electric Crimson & Indigo Neon Accents, Smartboard Precision Architecture
+   ========================================================================== */
+
+:root {
+  --kurfa-primary: #ff2056;
+  --kurfa-primary-hover: #ff3b6d;
+  --kurfa-primary-glow: rgba(255, 32, 86, 0.35);
+  --kurfa-secondary: #6366f1;
+  --kurfa-cyan: #06b6d4;
+  --kurfa-bg-light: #f8fafc;
+  --kurfa-surface-light: #ffffff;
+  --kurfa-bg-dark: #07090e;
+  --kurfa-surface-dark: #101522;
+  --kurfa-surface-card: #151b2b;
+  --kurfa-border-dark: rgba(255, 255, 255, 0.08);
+  --kurfa-border-light: rgba(0, 0, 0, 0.08);
+}
+
+html {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--kurfa-bg-light);
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure smooth touch scrolling across all devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.overflow-x-auto {
+  touch-action: pan-x pan-y !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbars on shelves and containers with scrollbar-none */
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Subtle modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
+}
+
+/* Material symbols styling */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Spinning Vinyl Animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+.paused-animation {
+  animation-play-state: paused !important;
+}
+
+/* Waveform pulse animation */
+@keyframes wave-bounce {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 20px;
+  }
+}
+.wave-bar {
+  animation: wave-bounce 0.9s ease-in-out infinite;
+  border-radius: 9999px;
+}
+.wave-bar:nth-child(2) { animation-delay: 0.15s; }
+.wave-bar:nth-child(3) { animation-delay: 0.3s; }
+.wave-bar:nth-child(4) { animation-delay: 0.45s; }
+.wave-bar:nth-child(5) { animation-delay: 0.6s; }
+.wave-bar:nth-child(6) { animation-delay: 0.75s; }
+
+/* Interactive Seekbar Dragging States */
+.seek-track {
+  cursor: pointer;
+  position: relative;
+  touch-action: none;
+}
+.seek-track .seek-knob {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transition: opacity 0.15s, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px rgba(255, 32, 86, 0.65);
+}
+.seek-track:hover .seek-knob,
+.seek-track.dragging .seek-knob {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Volume Track Dragging */
+.vol-track {
+  cursor: pointer;
+  position: relative;
+  touch-action: none;
+}
+.vol-track .vol-knob {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transition: opacity 0.15s, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 8px rgba(255, 32, 86, 0.5);
+}
+.vol-track:hover .vol-knob,
+.vol-track.dragging .vol-knob {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.vol-track:hover .vol-knob,
+.vol-track.dragging .vol-knob {
+  opacity: 1;
+}
+
+/* Active Nav State (Desktop Sidebar) */
+.nav-item {
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-item.active {
+  background: linear-gradient(135deg, var(--kurfa-primary), #e11d48) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 16px var(--kurfa-primary-glow);
+}
+.nav-item.active .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* Active Mobile Nav Item */
+.mobile-nav-item {
+  transition: all 0.2s ease;
+}
+.mobile-nav-item.active {
+  color: var(--kurfa-primary) !important;
+}
+.mobile-nav-item.active .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+  color: var(--kurfa-primary) !important;
+}
+
+/* ==========================================================================
+   VIEW SUSPENSION ENGINE (Zero Dormant Tab CPU/GPU Overhead)
+   ========================================================================== */
+.view-tab {
+  display: none !important;
+  content-visibility: hidden !important;
+  pointer-events: none !important;
+  contain: strict !important;
+}
+.view-tab.active {
+  display: flex !important;
+  content-visibility: visible !important;
+  pointer-events: auto !important;
+  contain: none !important;
+  animation: tabFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.view-suspended {
+  display: none !important;
+  content-visibility: hidden !important;
+  pointer-events: none !important;
+  contain: strict !important;
+}
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modern Dynamic Island Floating Toast */
+.kurfa-toast {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-28px) scale(0.92);
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  padding: 8px 16px 8px 10px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease, box-shadow 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(92vw, 440px);
+  cursor: pointer;
+  user-select: none;
+}
+.kurfa-toast.show {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.kurfa-toast:hover {
+  transform: translateX(-50%) translateY(2px) scale(1.02);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.kurfa-toast:active {
+  transform: translateX(-50%) translateY(3px) scale(0.97);
+}
+
+/* Lyrics Karaoke Highlight */
+.lyric-line,
+.lyrics-line {
+  transition: all 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+  cursor: pointer;
+  scroll-margin: 60px 0;
+  padding: 8px 14px;
+  border-radius: 14px;
+  line-height: 1.6;
+}
+.lyric-line:hover,
+.lyrics-line:hover {
+  color: var(--kurfa-primary);
+  background-color: rgba(255, 32, 86, 0.05);
+}
+.lyric-line.active,
+.lyric-line.active-lyric,
+.lyrics-line.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(255, 32, 86, 0.22), rgba(99, 102, 241, 0.15)) !important;
+  padding: 12px 20px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  transform: scale(1.02);
+  border-left: 4px solid var(--kurfa-primary);
+  box-shadow: 0 8px 24px rgba(255, 32, 86, 0.2);
+}
+body.dark-mode .lyric-line.active,
+body.dark-mode .lyric-line.active-lyric,
+body.dark-mode .lyrics-line.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(255, 32, 86, 0.28), rgba(99, 102, 241, 0.2)) !important;
+  border-left: 4px solid var(--kurfa-primary);
+}
+
+/* Equalizer Bars */
+.eq-bar {
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sub-Tab Pills */
+.sub-tab-pill {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+.sub-tab-pill.active {
+  background: linear-gradient(135deg, var(--kurfa-primary), #e11d48) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px var(--kurfa-primary-glow);
+  font-weight: 700;
+}
+.sub-tab-pill.active .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* EQ Preset Buttons */
+.eq-preset-btn {
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.eq-preset-btn.active {
+  background-color: var(--kurfa-secondary) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+/* Download Progress Bar */
+.download-progress-fill {
+  transition: width 0.3s ease-out;
+}
+
+/* Modern Card Hover Dynamics */
+.modern-card {
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.modern-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+body.dark-mode .modern-card:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+}
+
+/* =============================================================================
+   DARK MODE THEME OVERRIDES (Deep Cosmic Obsidian & Luxury Neon Glass)
+   ============================================================================= */
+
+html.dark-mode,
+html.dark-mode body,
+body.dark-mode {
+  background-color: var(--kurfa-bg-dark) !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark-mode main,
+html.dark-mode .bg-background,
+body.dark-mode main,
+body.dark-mode .bg-background {
+  background-color: var(--kurfa-bg-dark) !important;
+}
+
+body.dark-mode header {
+  background-color: rgba(7, 9, 14, 0.85) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode aside {
+  background-color: rgba(11, 14, 22, 0.95) !important;
+  border-right: 1px solid var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode footer {
+  background-color: var(--kurfa-bg-dark) !important;
+  border-top: 1px solid var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode #desktop-player-bar {
+  background-color: rgba(14, 18, 28, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--kurfa-border-dark) !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode #mobile-bottom-nav,
+body.dark-mode #mobile-mini-player {
+  background-color: rgba(14, 18, 28, 0.94) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode .bg-surface-container-lowest,
+body.dark-mode .bg-white {
+  background-color: var(--kurfa-surface-card) !important;
+  color: #f8fafc !important;
+  border: 1px solid var(--kurfa-border-dark);
+}
+
+body.dark-mode .bg-surface-container-low {
+  background-color: #121724 !important;
+}
+
+body.dark-mode .bg-surface-container {
+  background-color: #182030 !important;
+}
+
+body.dark-mode .bg-surface-container-high {
+  background-color: #202b40 !important;
+}
+
+body.dark-mode .bg-surface-container-highest {
+  background-color: #283750 !important;
+}
+
+body.dark-mode .text-on-surface {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .text-on-surface-variant {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .border-surface-container {
+  border-color: var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode input {
+  background-color: #141a27 !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+body.dark-mode input::placeholder {
+  color: #64748b !important;
+}
+
+/* Modals in Dark Mode */
+body.dark-mode #downloader-modal-card,
+body.dark-mode #profile-modal-card,
+body.dark-mode #share-modal-card,
+body.dark-mode #create-playlist-modal-card,
+body.dark-mode #add-to-playlist-modal-card,
+body.dark-mode #device-picker-modal-card,
+body.dark-mode #google-account-chooser-modal-card,
+body.dark-mode #download-queue-modal-card {
+  background-color: #111623 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.dark-mode #queue-drawer {
+  background-color: #111623 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Karaoke Deck & Lyrics */
+body.dark-mode #karaoke-lyrics-card {
+  background-color: #111623 !important;
+  border: 1px solid var(--kurfa-border-dark) !important;
+}
+
+body.dark-mode #karaoke-lyrics-box {
+  background-color: #0b0e17 !important;
+}
+
+body.dark-mode #lyrics-offset-controls {
+  background-color: #161c2b !important;
+  border: 1px solid var(--kurfa-border-dark) !important;
+}
+
+/* Sub-Tab Pills and Filters in Dark Mode */
+body.dark-mode .sub-tab-pill:not(.active) {
+  background-color: #141a28 !important;
+  color: #94a3b8 !important;
+}
+body.dark-mode .sub-tab-pill:not(.active):hover {
+  background-color: #1c2438 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-mode .filter-pill:not(.active) {
+  background-color: #141a28 !important;
+  border-color: var(--kurfa-border-dark) !important;
+  color: #94a3b8 !important;
+}
+body.dark-mode .filter-pill:not(.active):hover {
+  background-color: #1c2438 !important;
+  color: #f8fafc !important;
+}
+
+/* Track list table rows */
+.track-row {
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
+}
+.track-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+body.dark-mode .track-row:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+body.dark-mode .track-row.active {
+  background-color: rgba(255, 32, 86, 0.15) !important;
+  border-left: 3px solid var(--kurfa-primary) !important;
+}
+
+/* Navigation items in dark mode */
+body.dark-mode .nav-item:not(.active) {
+  color: #94a3b8 !important;
+}
+body.dark-mode .nav-item:not(.active):hover {
+  background-color: #161c2a !important;
+  color: #f8fafc !important;
+}
+
+body.dark-mode .mobile-nav-item:not(.active) {
+  color: #94a3b8 !important;
+}
+
+/* Toast Dark Mode */
+body.dark-mode .kurfa-toast {
+  background: rgba(20, 24, 34, 0.90) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* EQ Presets */
+body.dark-mode .eq-preset-btn:not(.active) {
+  background-color: #141a28 !important;
+  color: #94a3b8 !important;
+}
+body.dark-mode .eq-preset-btn:not(.active):hover {
+  background-color: #1c2438 !important;
+  color: #f8fafc !important;
+}
+
+/* Tables */
+body.dark-mode thead {
+  border-bottom: 1px solid var(--kurfa-border-dark) !important;
+}
+body.dark-mode th {
+  color: #94a3b8 !important;
+}
+body.dark-mode tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Range Inputs */
+body.dark-mode input[type="range"] {
+  background: #1c2438 !important;
+}
+
+/* Kbd */
+body.dark-mode kbd {
+  background: #141a28 !important;
+  color: #94a3b8 !important;
+  border: 1px solid var(--kurfa-border-dark) !important;
+}
+
+/* Scrollbars in Dark Mode */
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+}
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+body.dark-mode ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =============================================================================
+   MOBILE SMARTPHONE OPTIMIZATIONS (Touch Targets, Notch & Dynamic Island)
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  /* Dynamic Island & Notch Safe Areas */
+  #mobile-bottom-nav {
+    height: calc(3.85rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+  
+  #mobile-mini-player {
+    bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  main {
+    padding-top: calc(4.25rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  header {
+    height: calc(3.75rem + env(safe-area-inset-top, 0px)) !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
+  }
+
+  /* Modals: fit inside mobile screens with scrolling if keyboard opens */
+  #downloader-modal-card,
+  #profile-modal-card,
+  #share-modal-card,
+  #create-playlist-modal-card,
+  #add-to-playlist-modal-card,
+  #device-picker-modal-card,
+  #google-account-chooser-modal-card,
+  #download-queue-modal-card {
+    max-height: calc(92dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0.5rem !important;
+    padding: 1.25rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  /* Queue drawer on mobile */
+  #queue-drawer {
+    right: 0.5rem !important;
+    left: 0.5rem !important;
+    width: auto !important;
+    bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)) !important;
+    max-height: 65vh !important;
+  }
+
+  /* Scrollbars on phone */
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  /* Compact touch targets */
+  .filter-pill, .sub-tab-pill, .filter-chip {
+    touch-action: manipulation;
+  }
+}
+
+/* Responsive Deck Video Styling (16:9 proportional video fitting) */
+#deck-video-wrapper {
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  max-height: 420px !important;
+  background-color: #000 !important;
+}
+
+#deck-video-slot {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+#deck-video-slot iframe,
+#yt-player {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  border-radius: 1rem !important;
+}
+
+/* =============================================================================
+   14. FLOATING HORIZONTAL SHELF ARROWS & DRAG-TO-SCROLL
+   ============================================================================= */
+
+.btn-shelf-arrow {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  z-index: 25;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.group\/shelf:hover .btn-shelf-arrow {
+  opacity: 0.98;
+  pointer-events: auto;
+}
+
+.btn-shelf-arrow:hover {
+  opacity: 1 !important;
+  transform: translateY(-50%) scale(1.1);
+  background-color: #ffffff;
+  color: var(--kurfa-primary);
+  box-shadow: 0 8px 24px var(--kurfa-primary-glow);
+}
+
+.btn-shelf-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+body.dark-mode .btn-shelf-arrow {
+  background-color: rgba(22, 28, 42, 0.96);
+  color: #f8fafc;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+}
+
+body.dark-mode .btn-shelf-arrow:hover {
+  background-color: #20283c;
+  color: #ff3b6d;
+}
+
+/* Horizontal scroll styling */
+#trendler-cards-grid,
+#popular-artists-grid,
+#home-mixes-grid {
+  touch-action: pan-x pan-y;
+  scroll-behavior: smooth;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* When grabbing/dragging */
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing !important;
+}
+
+/* =============================================================================
+   15. ETKİLEŞİMLİ AKILLI TAHTA & DÜŞÜK DONANIM (VESTEL / ARÇELİK / PARDUS) MODU
+   KÖKTEN DÜZELTİLMİŞ, ULTRA AKICI, SIFIR CPU/GPU YÜKÜ, SINIF ERGONOMİSİ
+   ============================================================================= */
+
+/* 1. GPU Zorlayan Ağır Blur Efektlerini Kaldır (Intel HD Graphics / Celeron koruması) */
+body.tahta-mode,
+html.tahta-mode,
+body.tahta-mode * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.tahta-mode {
+  text-rendering: optimizeSpeed;
+}
+
+/* 2. Temiz, Yüksek Kontrastlı, Katı Yüzeyler (Göz yormayan, sınıfta 4 metreden okunaklı) */
+body.tahta-mode header,
+body.tahta-mode footer,
+body.tahta-mode aside,
+body.tahta-mode #mobile-mini-player,
+body.tahta-mode #mobile-bottom-nav {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.dark-mode.tahta-mode header,
+body.dark-mode.tahta-mode footer,
+body.dark-mode.tahta-mode aside,
+body.dark-mode.tahta-mode #mobile-mini-player,
+body.dark-mode.tahta-mode #mobile-bottom-nav {
+  background-color: #0b0f17 !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.tahta-mode #desktop-player-bar {
+  background-color: #ffffff !important;
+  border-top: 2px solid #cbd5e1 !important;
+}
+body.dark-mode.tahta-mode #desktop-player-bar {
+  background-color: #0b0f17 !important;
+  border-top: 2px solid #1e293b !important;
+}
+
+/* Modallarda GPU kitleyen blur yerine düz ve hızlı koyu perde */
+body.tahta-mode .fixed.inset-0 {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: none !important;
+}
+
+/* 3. Aşırı Gölgeleri Hafiflet */
+body.tahta-mode .shadow-2xl,
+body.tahta-mode .shadow-xl,
+body.tahta-mode .shadow-lg {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 4. AKILLI TAHTA ERGONOMİSİ (65"-86" Ekranda Parmakla Kolay Dokunma)
+   DİKKAT: Genel .cursor-pointer min-height zorlaması ASLA yapılmaz!
+   Yalnızca hedeflenmiş büyük kontrol butonları ve şarkı satırları optimize edilir. */
+
+body.tahta-mode .track-row,
+body.tahta-mode tbody tr {
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.65rem !important;
+  touch-action: manipulation !important;
+}
+
+/* Raf Gezinme Okları: Akıllı tahtada daima görünür ve devasa (parmakla kolay tıklanır) */
+body.tahta-mode .btn-shelf-arrow {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 2px solid #94a3b8 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+}
+
+body.dark-mode.tahta-mode .btn-shelf-arrow {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border-color: #475569 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Oynatıcı butonları tahtada rahat basılır */
+body.tahta-mode #player-play-icon,
+body.tahta-mode #player-play-icon-mobile {
+  font-size: 32px !important;
+}
+
+/* Tipografi sınıfta uzaktan okunabilmesi için netleşir */
+body.tahta-mode h1,
+body.tahta-mode h2,
+body.tahta-mode h3 {
+  letter-spacing: -0.01em;
+  font-weight: 800 !important;
+}
+
+/* ==========================================================================
+   MOBILE & SMARTPHONE ERGONOMICS & OPTIMIZATION (360px - 640px)
+   Smooth 60 FPS transitions, balanced typography, comfortable tap targets
+   ========================================================================== */
+@media (max-width: 640px) {
+  /* Prevent pull-to-refresh rubber-banding during scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Hardware layer promotion for mobile floating mini-player */
+  #mobile-mini-player {
+    transform: translateZ(0);
+    will-change: transform;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Hardware layer promotion for mobile bottom navigation bar */
+  #mobile-bottom-nav {
+    transform: translateZ(0);
+    will-change: transform;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Fullscreen mobile player hardware acceleration */
+  #mobile-now-playing-modal {
+    transform: translate3d(0, 100%, 0);
+    will-change: transform, opacity;
+  }
+  #mobile-now-playing-modal.translate-y-0 {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  /* Touch target ergonomics for navigation */
+  .mobile-nav-item {
+    touch-action: manipulation;
+    min-height: 44px;
+  }
+
+  /* Song row padding & touch ergonomics on phones */
+  #home-tracklist-table > div,
+  #search-results-list > div,
+  #fav-tracklist-table > div,
+  #playlist-tracks-table > div {
+    touch-action: manipulation;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  /* Top search input typography on mobile */
+  #top-search-input {
+    font-size: 13px !important;
+  }
+
+  /* Prevent auto-zoom on mobile form focus */
+  input[type="text"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Modal cards ergonomics on mobile */
+  #profile-modal > div,
+  #downloader-modal > div,
+  #share-modal > div,
+  #create-playlist-modal > div,
+  #add-to-playlist-modal > div,
+  #device-picker-modal > div {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem) !important;
+  }
+}
+

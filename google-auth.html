@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google ile Oturum Açın - Kurfamüzik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: #202124;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      padding: 36px 32px 32px;
+      box-shadow: 0 1px 3px rgba(60,64,67,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .google-logo {
+      width: 74px;
+      height: 24px;
+      margin-bottom: 16px;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #5f6368;
+    }
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: #1a73e8;
+    }
+    .accounts-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .account-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #dadce0;
+      cursor: pointer;
+      background: #ffffff;
+      transition: background 0.15s ease;
+      text-align: left;
+    }
+    .account-item:last-child {
+      border-bottom: none;
+    }
+    .account-item:hover {
+      background: #f8f9fa;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #dadce0;
+    }
+    .avatar-initial {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #ffffff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .account-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .account-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #202124;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .account-email {
+      font-size: 12px;
+      color: #5f6368;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .use-another-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #ffffff;
+      cursor: pointer;
+      color: #1a73e8;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+    .use-another-btn:hover {
+      background: #f8f9fa;
+    }
+    .icon-user {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #dadce0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5f6368;
+      flex-shrink: 0;
+    }
+    .custom-box {
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .custom-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+      background: #ffffff;
+      color: #202124;
+      outline: none;
+      transition: border 0.15s ease;
+    }
+    .custom-input:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px #1a73e8;
+    }
+    .btn-submit {
+      height: 36px;
+      background: #1a73e8;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0 16px;
+      transition: background 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-submit:hover {
+      background: #1557b0;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: #5f6368;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .footer-note a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="header">
+      <svg class="google-logo" viewBox="0 0 74 24">
+        <path fill="#4285F4" d="M12.04 11.23v2.85h6.88c-.28 1.83-2.14 5.37-6.88 5.37-4.14 0-7.52-3.44-7.52-7.66s3.38-7.66 7.52-7.66c2.36 0 3.94.99 4.84 1.85l2.25-2.25C17.7 2.37 15.11 1.34 12.04 1.34 5.4 1.34 0 6.74 0 13.39s5.4 12.05 12.04 12.05c6.94 0 11.55-4.88 11.55-11.75 0-.79-.09-1.39-.2-1.99H12.04z"/>
+        <path fill="#EA4335" d="M31.25 10.74c-4.04 0-6.9 3.09-6.9 7.02 0 3.9 2.86 7.02 6.9 7.02 4.01 0 6.87-3.12 6.87-7.02 0-3.93-2.86-7.02-6.87-7.02zm0 11.28c-2.22 0-4.11-1.83-4.11-4.26 0-2.46 1.89-4.26 4.11-4.26 2.19 0 4.08 1.8 4.08 4.26 0 2.43-1.89 4.26-4.08 4.26z"/>
+        <path fill="#FBBC05" d="M46.22 10.74c-4.04 0-6.9 3.09-6.9 7.02 0 3.9 2.86 7.02 6.9 7.02 4.01 0 6.87-3.12 6.87-7.02 0-3.93-2.86-7.02-6.87-7.02zm0 11.28c-2.22 0-4.11-1.83-4.11-4.26 0-2.46 1.89-4.26 4.11-4.26 2.19 0 4.08 1.8 4.08 4.26 0 2.43-1.89 4.26-4.08 4.26z"/>
+        <path fill="#4285F4" d="M60.67 11.19v1.23h-.09c-.66-.81-1.92-1.68-3.72-1.68-3.66 0-6.81 3.21-6.81 7.05 0 3.81 3.15 6.99 6.81 6.99 1.8 0 3.06-.87 3.72-1.71h.09v1.08c0 2.67-1.44 4.11-3.75 4.11-1.89 0-3.06-1.35-3.51-2.49l-2.46 1.02c.72 1.71 2.61 3.93 5.97 3.93 3.84 0 7.08-2.25 7.08-7.26V11.19h-3.33zm-3.48 10.83c-2.19 0-4.02-1.83-4.02-4.23s1.83-4.26 4.02-4.26c2.16 0 3.87 1.86 3.87 4.26 0 2.37-1.71 4.23-3.87 4.23z"/>
+        <path fill="#34A853" d="M66.45 2.19h2.82v22.59h-2.82z"/>
+      </svg>
+      <h1 class="title">Bir hesap seçin</h1>
+      <p class="subtitle"><span class="app-badge">Kurfamüzik</span> uygulamasına devam etmek için</p>
+    </div>
+
+    <!-- Accounts List Container -->
+    <div class="accounts-list" id="accounts-container">
+      <!-- Populated via JavaScript -->
+    </div>
+
+    <!-- Custom Account Box (Hidden by default) -->
+    <div id="custom-account-box" class="custom-box" style="display: none;">
+      <input type="text" id="input-custom-name" class="custom-input" placeholder="Adınız Soyadınız">
+      <input type="email" id="input-custom-email" class="custom-input" placeholder="Google E-postanız (örn: adiniz@gmail.com)">
+      <button type="button" class="btn-submit" onclick="submitCustomAccount()">Giriş Yap ve Devam Et</button>
+    </div>
+
+    <p class="footer-note">
+      Kurfamüzik ile devam ettiğinizde, çalma listeleriniz ve favorileriniz bu hesapla senkronize edilir.
+    </p>
+  </div>
+
+  <script>
+    // Known / Stored accounts
+    function getStoredAccounts() {
+      try {
+        const raw = localStorage.getItem('kurfa_google_accounts_list');
+        if (raw) {
+          const list = JSON.parse(raw);
+          if (Array.isArray(list) && list.length > 0) return list;
+        }
+      } catch(e) {}
+      
+      // Default initial authentic suggestions
+      return [
+        {
+          name: "Google Kullanıcısı",
+          email: "kullanici@gmail.com",
+          avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80",
+          uid: "google_default_user"
+        }
+      ];
+    }
+
+    function renderAccounts() {
+      const container = document.getElementById('accounts-container');
+      container.innerHTML = '';
+
+      const accounts = getStoredAccounts();
+      accounts.forEach(acc => {
+        const item = document.createElement('div');
+        item.className = 'account-item';
+        item.onclick = () => selectAccount(acc);
+        item.innerHTML = `
+          <img class="avatar" src="${acc.avatar}" alt="${acc.name}" onerror="this.outerHTML='<div class=\\'avatar-initial\\'>${acc.name.charAt(0).toUpperCase()}</div>'">
+          <div class="account-info">
+            <div class="account-name">${acc.name}</div>
+            <div class="account-email">${acc.email}</div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      // Use another account button
+      const anotherBtn = document.createElement('button');
+      anotherBtn.className = 'use-another-btn';
+      anotherBtn.innerHTML = `
+        <div class="icon-user">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+        <span>Başka bir hesap kullan</span>
+      `;
+      anotherBtn.onclick = toggleCustomBox;
+      container.appendChild(anotherBtn);
+    }
+
+    function toggleCustomBox() {
+      const box = document.getElementById('custom-account-box');
+      box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+      if (box.style.display === 'flex') {
+        document.getElementById('input-custom-name').focus();
+      }
+    }
+
+    function submitCustomAccount() {
+      const name = document.getElementById('input-custom-name').value.trim();
+      const email = document.getElementById('input-custom-email').value.trim();
+
+      if (!name || !email) {
+        alert("Lütfen adınızı ve Google e-posta adresinizi girin.");
+        return;
+      }
+
+      const acc = {
+        name,
+        email,
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80",
+        uid: "google_" + Date.now()
+      };
+
+      const list = getStoredAccounts();
+      if (!list.some(a => a.email.toLowerCase() === email.toLowerCase())) {
+        list.push(acc);
+        try {
+          localStorage.setItem('kurfa_google_accounts_list', JSON.stringify(list));
+        } catch(e) {}
+      }
+
+      selectAccount(acc);
+    }
+
+    function selectAccount(acc) {
+      if (window.opener && !window.opener.closed) {
+        const targetOrigin = window.location.origin;
+        window.opener.postMessage({
+          type: 'KURFA_GOOGLE_AUTH_SUCCESS',
+          user: acc
+        }, targetOrigin);
+      }
+      window.close();
+    }
+
+    window.onload = renderAccounts;
+  </script>
+</body>
+</html>
