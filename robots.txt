@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kurfacore.github.io/kurfanova/sitemap.xml
+Sitemap: https://kurfanova.github.io/sitemap.xml
